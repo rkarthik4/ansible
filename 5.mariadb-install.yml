@@ -1,0 +1,27 @@
+---
+- name: install and configure maria db server
+  hosts: db
+  tasks:
+    - name: install maria db
+      tags:
+        - install
+        - db
+      dnf:
+        name: mariadb-server
+        state: latest
+
+    - name: start service and enable
+      tags:
+        - configure
+        - web
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: true
+
+    - name: open firewall port 3306
+      ansible.posix.firewalld:
+        port: 3306/tcp
+        state: enabled
+        immediate: yes
+        permanent: yes

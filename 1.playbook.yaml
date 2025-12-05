@@ -1,0 +1,10 @@
+//playbook is a collection of plays
+- name: play1 - get some data
+  hosts: all #mandatory field required 
+  tasks: #action to perform
+   -  name: tasks1
+      copy: #use copy module
+       
+
+- name: play2 - for installing an app
+- name: play3 - debug

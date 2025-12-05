@@ -1,0 +1,8 @@
+- name: Open firewall port with import task
+  hosts: allservers
+  tasks:
+    - name: include task on firewallport
+      include_tasks: tasks/firewallport.yml
+      vars: 
+        fport: 8080
+

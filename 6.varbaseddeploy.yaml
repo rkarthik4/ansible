@@ -1,0 +1,23 @@
+# Try consume variables overtime, don't touch this file
+- name: "deploy {{ app }}"
+  hosts: "{{ group | default('db') }}"  # If group is undefined, default to 'db'
+  vars_files:
+    - app_deploy.yaml
+  tasks:
+    - name: "install {{ app }} in {{ group }} nodes"
+      dnf:
+        name: "{{ app }}"
+        state: latest
+
+    - name: "start {{ appservice }} service"
+      service:
+        name: "{{ appservice }}"
+        state: started
+        enabled: true
+
+    - name: "open port for {{ app }} of port no {{ appport }}"
+      ansible.posix.firewalld:
+        port: "{{ appport }}"
+        state: enabled
+        immediate: yes
+        permanent: 1

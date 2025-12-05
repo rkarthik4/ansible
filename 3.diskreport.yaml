@@ -1,0 +1,17 @@
+- name: p1 - create disk report in all managed node
+  hosts: allservers
+  tasks:
+
+    - name: create disk report
+      ansible.builtin.shell: "df -h > /tmp/diskreport.txt"
+
+    - name: Get the content of disk report
+      ansible.builtin.command: cat /tmp/diskreport.txt
+      register: commandoutputregister
+
+    - name: Use debug module
+      ansible.builtin.debug:
+        msg:
+          - "The command took {{ commandoutputregister.delta }}"
+          - "Disk Report Output:"
+          - "{{ commandoutputregister.stdout_lines }}"

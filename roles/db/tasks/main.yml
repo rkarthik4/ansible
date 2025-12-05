@@ -1,0 +1,6 @@
+---
+# tasks file for db
+- name: install mariadb-server
+  import tasks: ./install.yml
+- name: open firewall port
+  import tasks: ./firewallport.yml 
